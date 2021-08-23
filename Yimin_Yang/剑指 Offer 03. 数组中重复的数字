@@ -1,0 +1,31 @@
+class Solution:
+    """hash"""
+    # def findRepeatNumber(self, nums: List[int]) -> int:
+    #     dic = set()
+    #     for num in nums:
+    #         if num in dic:
+    #             return num
+    #         dic.add(num)
+
+    """sort the list"""
+    # def findRepeatNumber(self, nums: List[int]) -> int:
+    #     nums.sort()
+    #     pre = nums[0]
+
+    #     for i in range(1, len(nums)):
+    #         if pre == nums[i]:
+    #             return pre
+    #         pre = nums[i]
+
+    """原地哈希"""
+    def findRepeatNumber(self, nums: List[int]) -> int:
+
+        i = 0 # 索引开始
+        while i < len(nums): # 遍历
+            if nums[i] == i: # 第一次出现，索引等于对应的值
+                i += 1
+                continue
+            if nums[i] == nums[nums[i]]:  # 找到了重复的值
+                return nums[i]
+            nums[nums[i]], nums[i] == nums[i], nums[nums[i]] #交换
+        return -1
