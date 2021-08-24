@@ -7,21 +7,26 @@
 # 来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。 x n 
 
 
-
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
+        def dfs(i, j, k):
+            if not 0 <= i < len(board) or not 0 <= j < len(board[0]):
+                return False
+            if board[i][j] != word[k]:  #当前字符，所以必须在第一个if判断下面，否则会溢出
+                return False
+            if k == len(word) - 1:
+                return True
+            
+            board[i][j] = ''  #查询过的就设置为空字符串，防止反复查询
+            temp = dfs(i-1,j, k+1) or dfs(i+1, j, k+1) or dfs(i,j-1,k+1) or dfs(i,j+1,k+1)
+            board[i][j] = word[k] # 还原现场
+            return temp
+        for i in range(len(board)):# 开始遍历
+            for j in range(len(board[0])):
+                if dfs(i,j,0):
+                    return True
+        return False
 
-      def dfs(i, j, k):  # i和j是当前元素在矩阵中的行列索引，k是字符的索引
-        if not 0 <= i <len(board) or not 0 <= j < len(board[0]) or board[i][j] != word[k]:#是否越界和第一个字母是否匹配
-          return False
-        if k == len(board) - 1:
-          return True 
-        board[i][j] = ''
-        res = dfs[i+1, j, k+1] or dfs(i-1,j,k=1) or dfs(i,j+1,k+1) or dfs(i,j-1,k+1)
-        board[i][j] = word[k]
-        return res
-      for i in range(len(board)):
-        for j in range(len(board)-1):
-          if dfs(j, j, 0):
-            return True
-      return False
+
+
+            
