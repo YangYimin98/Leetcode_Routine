@@ -1,2 +1,3 @@
 # Leetcode_Routine
-Leetcode exercise everyday.
+This repository is for Leetcode daily exercise. 
+
