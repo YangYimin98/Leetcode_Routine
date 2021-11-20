@@ -26,16 +26,29 @@
 
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        # 首先确认树是否为空，如果为空，返回None
+        # 找到root的值---> 前序遍历的第一个值
+        # 找到root值在inorder中的索引
+        # 进行数的左右部分的拼接
 
-        # If the preorder is not existance, then return None.
-        if inorder:
-            # find the root in the inorder
-            ind = inorder.index(preorder.pop(0))
-            # get the loc of root
-            root = TreeNode(inorder[ind])
-            root.left = self.buildTree(preorder, inorder[0: ind])
-            root.right = self.buildTree(preorder, inorder[ind + 1:])
-            return root
+        if not preorder: return None
+        root = TreeNode(preorder[0])
+        ind = inorder.index(preorder[0])
+        # preorder 1: ind + 1, ind +1 :
+        # inorder ind + 1: ind + 1:
+        root.left = self.buildTree(preorder[1: ind + 1], inorder[:ind])
+        root.right = self.buildTree(preorder[ind + 1 :], inorder[ind + 1:])
+        return root
+
+        # # If the preorder is not existance, then return None.
+        # if inorder:
+        #     # find the root in the inorder
+        #     ind = inorder.index(preorder.pop(0))
+        #     # get the loc of root
+        #     root = TreeNode(inorder[ind])
+        #     root.left = self.buildTree(preorder, inorder[0: ind])
+        #     root.right = self.buildTree(preorder, inorder[ind + 1:])
+        #     return root
 
         # # Recursive algorithm
         # def dfs(root, left, right):
